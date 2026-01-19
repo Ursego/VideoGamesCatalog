@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="VideoGameCatalog.Api.Tests/VideoGameCatalog.Api.Tests.csproj" />
+  <Project Path="VideoGameCatalog.Api/VideoGameCatalog.Api.csproj" />
+</Solution>
