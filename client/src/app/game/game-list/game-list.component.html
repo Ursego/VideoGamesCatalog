@@ -1,0 +1,63 @@
+@if (!gameListLoadedSignal()) {
+	<div class="d-flex justify-content-center align-items-center" style="min-height: 12rem;">
+		<div class="spinner-border" role="status"></div>
+	</div>	
+} @else {
+	<div class="container-fluid">
+
+		<div class="mb-3 d-flex align-items-center gap-2">
+			<label for="gameNameText" class="col-form-label">Search:</label>
+			<input id="gameNameText" type="text" class="form-control" #gameNameText />
+			<button type="button" class="btn btn-primary" (click)="onSearchButtonClick(gameNameText.value); gameNameText.focus()">
+				Search
+			</button>
+		</div>
+
+		<div class="table-responsive">
+			<table class="table table-hover table-sm align-middle">
+				<thead>
+					<tr>
+						<th scope="col" style="width: 80px;">Id</th>
+						<th scope="col" style="min-width: 200px;">Name</th>
+						<th scope="col">Description</th>
+						<th scope="col" style="min-width: 160px;">Category</th>
+						<th scope="col" style="min-width: 180px;">Age Rating</th>
+						<th scope="col" style="width: 140px;">Release Date</th>
+						<th scope="col" style="width: 80px;">Active</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@for (game of gameListSignal(); track game.id) {
+						<tr
+							[class.table-active]="getHighlightedGameId() === game.id"
+							style="cursor: pointer;"
+							(click)="onRowClick(game)"
+							(dblclick)="onEditButtonClick()"
+						>
+							<td>{{ game.id }}</td>
+							<td>{{ game.name }}</td>
+							<td>{{ game.description ?? "" }}</td>
+							<td>{{ getGameCategoryDescription(game.gameCategoryId) }}</td>
+							<td>{{ getAgeRatingDescription(game.ageRatingId) }}</td>
+							<td>{{ game.releaseDate ?? "" }}</td>
+							<td>{{ game.isActive }}</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+
+		<div class="mt-3 d-flex gap-2">
+			<button type="button" class="btn btn-primary" (click)="onAddButtonClick()">
+				Add
+			</button>
+			<button type="button" class="btn btn-secondary" [disabled]="!highlightedGameExists()" (click)="onEditButtonClick()">
+				Edit
+			</button>
+			<button type="button" class="btn btn-danger" [disabled]="!highlightedGameExists()" (click)="onDeleteButtonClick()">
+				Delete
+			</button>
+		</div>
+	</div>
+}

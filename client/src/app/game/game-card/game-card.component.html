@@ -1,0 +1,152 @@
+@if (!gameLoadedSignal()) {
+	<div class="d-flex justify-content-center align-items-center" style="min-height: 12rem;">
+        <div class="spinner-border" role="status"></div>
+    </div>    
+} @else {
+	<form [formGroup]="gameForm" class="container-fluid p-0">
+		<div class="row g-3">
+			<div class="col-12">
+				<div class="row align-items-center">
+					<div class="col-sm-3">
+						<label class="col-form-label" for="id">
+							Id
+						</label>
+					</div>
+					<div class="col-sm-9">
+						<input id="id" type="number" class="form-control" formControlName="id" />
+					</div>
+				</div>
+
+				<div class="row align-items-center mt-3">
+					<div class="col-sm-3">
+						<label class="col-form-label" for="name">
+							Name
+						</label>
+					</div>
+					<div class="col-sm-9">
+						<input id="name" type="text" class="form-control" formControlName="name" autofocus />
+						@if (gameForm.controls["name"].touched && gameForm.controls["name"].invalid) {
+							<div class="text-danger small mt-1">
+								@if (gameForm.controls["name"].errors?.["required"]) { <div>Name is required.</div> }
+								@if (gameForm.controls["name"].errors?.["maxlength"]) { <div>Name max length is 200.</div> }
+							</div>
+						}
+					</div>
+				</div>
+
+				<div class="row align-items-center mt-3">
+					<div class="col-sm-3">
+						<label class="col-form-label" for="description">
+							Description
+						</label>
+					</div>
+					<div class="col-sm-9">
+						<textarea id="description" class="form-control" rows="3" formControlName="description"></textarea>
+						@if (gameForm.controls["description"].touched && gameForm.controls["description"].invalid) {
+							<div class="text-danger small mt-1">
+								@if (gameForm.controls["description"].errors?.["maxlength"]) { <div>Description max length is 2000.</div> }
+							</div>
+						}
+					</div>
+				</div>
+
+				<div class="row align-items-center mt-3">
+					<div class="col-sm-3">
+						<label class="col-form-label" for="gameCategoryId">
+							Game Category
+						</label>
+					</div>
+					<div class="col-sm-9">
+						<select id="gameCategoryId" class="form-select" formControlName="gameCategoryId">
+							<option [ngValue]="0">
+								Select...
+							</option>
+							@for (item of gameCategoryListSignal(); track item.id) {
+								<option [ngValue]="item.id">{{ item.description }}</option>
+							}
+						</select>
+						@if (gameForm.controls["gameCategoryId"].touched && gameForm.controls["gameCategoryId"].invalid) {
+							<div class="text-danger small mt-1">
+								<div>Game Category is required.</div>
+							</div>
+						}
+					</div>
+				</div>
+
+				<div class="row align-items-center mt-3">
+					<div class="col-sm-3">
+						<label class="col-form-label" for="ageRatingId">
+							Age Rating
+						</label>
+					</div>
+					<div class="col-sm-9">
+						<select id="ageRatingId" class="form-select" formControlName="ageRatingId">
+							<option [ngValue]="0">
+								Select...
+							</option>
+							@for (item of ageRatingListSignal(); track item.id) {
+								<option [ngValue]="item.id">{{ item.description }}</option>
+							}
+						</select>
+						@if (gameForm.controls["ageRatingId"].touched && gameForm.controls["ageRatingId"].invalid) {
+							<div class="text-danger small mt-1">
+								<div>Age Rating is required.</div>
+							</div>
+						}
+					</div>
+				</div>
+
+				<div class="row align-items-center mt-3">
+					<div class="col-sm-3">
+						<label class="col-form-label" for="releaseDate">
+							Release Date
+						</label>
+					</div>
+					<div class="col-sm-9">
+						<input id="releaseDate" type="date" class="form-control" formControlName="releaseDate" />
+					</div>
+				</div>
+
+				<div class="row align-items-center mt-3">
+					<div class="col-sm-3">
+						<label class="col-form-label" for="coverImageUrl">
+							Cover Image Url
+						</label>
+					</div>
+					<div class="col-sm-9">
+						<input id="coverImageUrl" type="text" class="form-control" formControlName="coverImageUrl" />
+						@if (gameForm.controls["coverImageUrl"].touched && gameForm.controls["coverImageUrl"].invalid) {
+							<div class="text-danger small mt-1">
+								@if (gameForm.controls["coverImageUrl"].errors?.["maxlength"]) { <div>CoverImageUrl max length is 500.</div> }
+								@if (gameForm.controls["coverImageUrl"].errors?.["pattern"]) { <div>CoverImageUrl must be a valid http/https URL.</div> }
+							</div>
+						}
+					</div>
+				</div>
+
+				<div class="row align-items-center mt-3">
+					<div class="col-sm-3">
+						<label class="col-form-label" for="isActive">
+							Is Active
+						</label>
+					</div>
+					<div class="col-sm-9">
+						<select id="isActive" class="form-select" formControlName="isActive">
+							<option [ngValue]="dbBoolean.Yes">Yes</option>
+							<option [ngValue]="dbBoolean.No">No</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 d-flex justify-content-center gap-2 mt-4">
+				<button type="button" class="btn btn-outline-secondary" (click)="onCloseClick()">
+					Close
+				</button>
+				<button type="button" class="btn btn-primary" [disabled]="!enableSaveButtonSignal()" (click)="onSaveClick()">
+					Save
+				</button>
+			</div>
+		</div>
+	</form>
+}

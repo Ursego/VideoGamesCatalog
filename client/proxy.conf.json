@@ -1,0 +1,20 @@
+{
+	"/games": {
+		"target": "http://127.0.0.1:5034",
+		"secure": false,
+		"changeOrigin": true,
+		"logLevel": "debug"
+	},
+	"/gamecategories": {
+		"target": "http://127.0.0.1:5034",
+		"secure": false,
+		"changeOrigin": true,
+		"logLevel": "debug"
+	},
+	"/ageratings": {
+		"target": "http://127.0.0.1:5034",
+		"secure": false,
+		"changeOrigin": true,
+		"logLevel": "debug"
+	}
+}
