@@ -1,9 +1,11 @@
+// DropdownEntryDto is a generic type for a dropdown list entry.
+
 namespace VideoGameCatalog.Api.Util
 {
     public class DropdownEntryDto
     {
         public int Id { get; set; }
-        //public required string Description { get; set; }
+        
         private string _description = null!;
         public string Description
         {
@@ -24,7 +26,7 @@ namespace VideoGameCatalog.Api.Util
         public DropdownEntryDto(int id, string description)
         {
             Id = id;
-            Description = description; // validated by setter
+            Description = description; // validated by the setter
         }
     }
 }
