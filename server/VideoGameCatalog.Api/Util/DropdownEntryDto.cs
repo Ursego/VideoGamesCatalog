@@ -1,4 +1,4 @@
-// DropdownEntryDto is a generic type for a dropdown list entry.
+// A generic type for a dropdown list entry.
 
 namespace VideoGameCatalog.Api.Util
 {
