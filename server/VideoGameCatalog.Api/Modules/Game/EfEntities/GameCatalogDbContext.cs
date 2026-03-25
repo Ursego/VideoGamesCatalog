@@ -15,9 +15,9 @@ namespace VideoGameCatalog.Api.Modules.Game.EfEntities
             base.OnModelCreating(modelBuilder);
 
             // Stores DbBoolean as 'Y'/'N' in the DB and reads it back to enum.
-            var dbBooleanConverter = new ValueConverter<DbBoolean, string>(
-                v => v == DbBoolean.Yes ? "Y" : "N",
-                v => v == "Y" ? DbBoolean.Yes : DbBoolean.No
+            var dbBooleanConverter = new ValueConverter<bool, DbBoolean>(
+                boolVal => boolVal ? DbBoolean.Yes : DbBoolean.No,
+                dbVal => dbVal == DbBoolean.Yes
             );
 
             modelBuilder.Entity<GameCategory>(e =>
