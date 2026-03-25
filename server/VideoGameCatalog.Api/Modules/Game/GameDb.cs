@@ -1,14 +1,24 @@
-// *** GameDb ***
-// Concrete EF Core implementation of IGameDb that executes queries/commands via GameCatalogDbContext.
-// Centralizes all EF Core queries in one place, keeping GameBl focused on business rules and mapping.
-// Keeps DB concerns out of higher layers (controller / business logic).
-// Provides a single point to tune DB behavior.
 
 using VideoGameCatalog.Api.Modules.Game.EfEntities;
 using Microsoft.EntityFrameworkCore;
 
 namespace VideoGameCatalog.Api.Modules.Game
 {
+    // GameDb is a concrete implementation of the IGameDb interface (https://tinyurl.com/5n7wy4v7).
+    // While IGameDb defines *what* operations the data layer must provide, GameDb defines *how* those operations are actually performed.
+    
+    // GameDb communicates directly with the real Oracle database using Entity Framework Core and executes queries/commands via GameCatalogDbContext (https://tinyurl.com/mrxfxrcx).
+    // Every method inside GameDb executes real SQL queries through the EF DbContext, loads entities, maps them to DTOs, and returns the results to the business logic layer.
+
+    // GameDb provides a single point to tune DB behavior by isolating all database‑specific code in one place.
+    // This keeps the rest of the application independent from the persistence technology and allows GameBl to focus only on business rules and mapping.
+    // Business logic does not know anything about Oracle, EF Core, or SQL; it only calls the methods defined in IGameDb.
+    // Because of this separation, GameDb can be replaced or retired in the future without changing the business logic.
+
+    // GameDb also contains the actual mapping between EF entities and DTOs.
+    // EF entities represent the database tables, while DTOs represent the API contract.
+    // GameDb is the correct place to convert between these two models, because it sits at the boundary between persistence and business logic.
+
     public class GameDb(GameCatalogDbContext db) : IGameDb
     {
         private readonly GameCatalogDbContext _db = db;
