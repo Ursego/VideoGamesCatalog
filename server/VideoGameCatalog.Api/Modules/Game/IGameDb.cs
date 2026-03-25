@@ -18,8 +18,8 @@ namespace VideoGameCatalog.Api.Modules.Game
     // The actual object passed into GameBl at runtime is an instance of GameDb, (https://tinyurl.com/6jabae3j) which is the only class in the project that implements IGameDb.
 
     // The reason the parameter is typed as IGameDb rather than GameDb is to allow the data‑access layer to be replaced without modifying the business logic.
-    // For example, one could swap GameDb for a mock database during testing, or for a different storage mechanism (e.g., different DBMS, caching layer) in the future.
     // If later you change how persistence works, you switch from GameDb to a another class which implements IGameDb - with minimal changes above it.
+    // For example, one could create a new class such as GameDbPostgres, GameDbInMemory or GameTestMockDb and switch to it through dependency injection.
     
     // The API controller (https://tinyurl.com/38ankncc) does not use IGameDb directly; it communicates only with GameBl.
     // This is intentional: API controllers should not access the database layer.
