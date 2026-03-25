@@ -9,23 +9,23 @@ namespace VideoGameCatalog.Api.Modules.Game.EfEntities
     // EF entity classes represent the structure of database tables. Each entity corresponds to one table, and each property corresponds to one column.
     // These classes must follow certain requirements: they must be simple C# classes with public get/set properties, they must not contain business logic, and they must be compatible with EF conventions
     //     (for example, an Id property is treated as the primary key).
-    // They also have limitations: they should not contain behavior, they should not depend on services, and they should not be tightly coupled to API models or DTOs.
+    
+    // They also have limitations:
+    // * They must be simple POCO classes with public properties.
+    // * They should not contain behavior, business logic or validation rules.
+    // * They should not depend on (be tightly coupled to) API models, DTOs, or services.
+    // * They must match the database schema; otherwise EF will fail at runtime.
+    // * Navigation properties must be virtual if lazy loading is desired.
+    // * They should not contain constructors that require parameters, because EF needs to instantiate them automatically.
     public class Game
     {
         public int Id { get; set; }
-
         public string Name { get; set; } = string.Empty;
-
         public string? Description { get; set; }
-
         public int GameCategoryId { get; set; }
-
         public int AgeRatingId { get; set; }
-
         public DateTime? ReleaseDate { get; set; }
-
         public string? CoverImageUrl { get; set; }
-
         public DbBoolean IsActive { get; set; } = DbBoolean.Yes;
     }
 }
