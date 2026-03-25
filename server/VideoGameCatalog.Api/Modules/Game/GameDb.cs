@@ -1,4 +1,3 @@
-
 using VideoGameCatalog.Api.Modules.Game.EfEntities;
 using Microsoft.EntityFrameworkCore;
 
